@@ -1,6 +1,6 @@
 src := lightgbm_tools
 test-src := tests
-other-src := setup.py
+other-src := setup.py examples
 
 check:
 	pydocstyle --count $(src) $(test-src) $(other-src)
