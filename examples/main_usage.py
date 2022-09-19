@@ -4,7 +4,7 @@
 
 from pprint import pprint
 
-import lightgbm as lgb
+import lightgbm as lgbm
 from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import balanced_accuracy_score
 from sklearn.model_selection import train_test_split
@@ -54,8 +54,8 @@ callback = binary_eval_callback_factory(
 )
 
 # create LightGBM datasets
-train_data = lgb.Dataset(x_train, label=y_train)
-val_data = lgb.Dataset(x_val, label=y_val)
+train_data = lgbm.Dataset(x_train, label=y_train)
+val_data = lgbm.Dataset(x_val, label=y_val)
 
 param = {
     "objective": "binary",
@@ -63,7 +63,7 @@ param = {
 
 evals_result = {}
 
-bst = lgb.train(
+bst = lgbm.train(
     param,
     train_data,
     valid_sets=val_data,
