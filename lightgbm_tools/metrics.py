@@ -6,7 +6,7 @@
 """LightGBM Metrics."""
 
 from dataclasses import dataclass
-from typing import Callable, List
+from typing import Callable, List, Optional, Tuple
 
 import lightgbm as lgbm
 import numpy as np
@@ -52,12 +52,12 @@ def binary_eval_callback_factory(lightgbm_eval_functions: List[LightGbmEvalFunct
 
     def binary_eval_callback(y_pred: np.ndarray, data: lgbm.basic.Dataset):
         assert y_pred.ndim == 1
-        y_true = data.get_label()
-        y_pred_binary = None  # we do lasy init here (see below)
-        results = []
+        y_true: np.ndarray = data.get_label()
+        y_pred_binary: Optional[np.ndarray] = None  # lasy init (see below)
+        results: List[Tuple[str, float, bool]] = []
         for lightgbm_eval_function in lightgbm_eval_functions:
             if lightgbm_eval_function.needs_binary_predictions:
-                if y_pred_binary is None:  # we do lasy init here
+                if y_pred_binary is None:  # lasy init
                     y_pred_binary = np.round(y_pred)
                 result = lightgbm_eval_function.function(y_true, y_pred_binary)
             else:
