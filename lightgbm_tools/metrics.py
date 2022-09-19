@@ -22,7 +22,18 @@ from sklearn.metrics import (
 
 @dataclass
 class LightGbmEvalFunction:
-    """TODO: add docstring."""
+    """Configuration of a LightGBM evaluation (metric) function.
+
+    Args:
+        name: The name of the metric.
+        function: The metric function in scikit-learn metric style.
+            First argument is y_true (1d array-like, or label indicator array / sparse matrix).
+            Second argument is y_pred (1d array-like, or label indicator array / sparse matrix).
+            Returns the calculated metric.
+        is_higher_better: Indicates if higher metric result is better.
+        needs_binary_predictions: If the metric functions needs binary predictions (0 or 1) or
+            the raw logistic output.
+    """
 
     name: str
     function: Callable
@@ -31,10 +42,15 @@ class LightGbmEvalFunction:
 
 
 def binary_eval_callback_factory(lightgbm_eval_functions: List[LightGbmEvalFunction]):
-    """TODO: add docstring."""
+    """Factory function for a binary evaluation callback for LightGBM.
+
+    This functions needs a list of ``LightGbmEvalFunction``.
+    From this list it constructs a callback function for LightGBM.
+    This callback function can be assigned to the ``feval`` parameter in
+    ``lightgbm.train``.
+    """
 
     def binary_eval_callback(y_pred: np.ndarray, data: lgbm.basic.Dataset):
-        """TODO: add docstring."""
         assert y_pred.ndim == 1
         y_true = data.get_label()
         y_pred_binary = None  # we do lasy init here (see below)
