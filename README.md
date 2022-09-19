@@ -1,6 +1,4 @@
-# lightgbm-tools
-
-Tools for LightGBM
+# LightGBM Tools
 
 ## Licensing
 
