@@ -1,9 +1,9 @@
 # LightGBM Tools
 
 This Python package implements tools for [LightGBM](https://lightgbm.readthedocs.io/).
-In the current version lightgbm-tools focuses on a tool for custom binary classification metrics.
+In the current version lightgbm-tools focuses on binary classification metrics.
 
-## What exact problem is solved by this tool?
+## What exact problem does this tool solve?
 
 LightGBM has some [built-in metrics](https://lightgbm.readthedocs.io/en/v3.3.2/Parameters.html#metric) that can be used.
 These are useful but limited. Some important metrics are missing.
@@ -11,9 +11,9 @@ These are, among others, the [F1-score](https://scikit-learn.org/stable/modules/
 and the [average precision (AP)](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html).
 
 These metrics can be easily added using this tool.
-This happens through a mechanism built into LightGBM where we can assign a callback to the `feval` parameer of 
-`lightgbm.train` (see 
-[lightgbm.train](https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.train.html#lightgbm-train) documentation. 
+This happens through a mechanism built into LightGBM where we can assign a callback to the `feval` parameter of
+`lightgbm.train` (see
+[lightgbm.train](https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.train.html#lightgbm-train) documentation).
 
 ## Usage
 
