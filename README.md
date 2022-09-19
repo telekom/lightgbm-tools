@@ -15,6 +15,13 @@ This happens through a mechanism built into LightGBM where we can assign a callb
 `lightgbm.train` (see
 [lightgbm.train](https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.train.html#lightgbm-train) documentation).
 
+## Maintainers
+
+[![One Conversation](https://raw.githubusercontent.com/telekom/lightgbm-tools/main/docs/source/imgs/1c-logo.png)](https://www.welove.ai/)
+<br/>
+This project is maintained by the [One Conversation](https://www.welove.ai/)
+team of [Deutsche Telekom AG](https://www.telekom.com/).
+
 ## Usage
 
 For a full example see here: <https://github.com/telekom/lightgbm-tools/blob/main/examples/main_usage.py>
