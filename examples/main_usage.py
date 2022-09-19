@@ -2,7 +2,11 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
+
+"""Main example for usage."""
+
 from pprint import pprint
+from typing import Dict
 
 import lightgbm as lgbm
 from sklearn.datasets import load_breast_cancer
@@ -19,7 +23,7 @@ from lightgbm_tools.metrics import (
 
 
 # load the breast cancer data
-# see: https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html#sklearn.datasets.load_breast_cancer
+# see: https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html#sklearn.datasets.load_breast_cancer  # noqa: E501
 breast_cancer_data = load_breast_cancer()
 
 # split data to dataset (x) and labels (y)
@@ -61,7 +65,7 @@ param = {
     "objective": "binary",
 }
 
-evals_result = {}
+evals_result: Dict = {}
 
 bst = lgbm.train(
     param,
