@@ -54,28 +54,28 @@ def binary_eval_callback_factory(lightgbm_eval_functions: List[LightGbmEvalFunct
     return binary_eval_callback
 
 
-f1_score = LightGbmEvalFunction(
+lgbm_f1_score = LightGbmEvalFunction(
     name="f1",
     function=f1_score,
     is_higher_better=True,
     needs_binary_predictions=True,
 )
 
-accuracy_score = LightGbmEvalFunction(
+lgbm_accuracy_score = LightGbmEvalFunction(
     name="accuracy",
     function=accuracy_score,
     is_higher_better=True,
     needs_binary_predictions=True,
 )
 
-average_precision_score = LightGbmEvalFunction(
+lgbm_average_precision_score = LightGbmEvalFunction(
     name="average_precision",
     function=average_precision_score,
     is_higher_better=True,
     needs_binary_predictions=False,
 )
 
-roc_auc_score = LightGbmEvalFunction(
+lgbm_roc_auc_score = LightGbmEvalFunction(
     name="roc_auc",
     function=roc_auc_score,
     is_higher_better=True,
@@ -83,7 +83,7 @@ roc_auc_score = LightGbmEvalFunction(
 )
 
 
-recall_score = LightGbmEvalFunction(
+lgbm_recall_score = LightGbmEvalFunction(
     name="recall",
     function=recall_score,
     is_higher_better=True,
@@ -91,7 +91,7 @@ recall_score = LightGbmEvalFunction(
 )
 
 
-precision_score = LightGbmEvalFunction(
+lgbm_precision_score = LightGbmEvalFunction(
     name="precision",
     function=precision_score,
     is_higher_better=True,
