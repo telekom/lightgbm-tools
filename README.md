@@ -75,6 +75,14 @@ bst = lgbm.train(
 )
 ```
 
+## Installation
+
+lightgbm-tools can be installed with pip:
+
+```bash
+pip install lightgbm-tools
+```
+
 ## Licensing
 
 Copyright (c) 2022 Philip May, Deutsche Telekom AG
