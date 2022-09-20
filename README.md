@@ -1,5 +1,9 @@
 # LightGBM Tools
 
+[![MIT License](https://img.shields.io/github/license/telekom/lightgbm-tools)](https://github.com/telekom/lightgbm-tools/blob/main/LICENSE)
+[![Python Version](https://img.shields.io/pypi/pyversions/lightgbm-tools)](https://www.python.org)
+[![pypi](https://img.shields.io/pypi/v/lightgbm-tools.svg)](https://pypi.python.org/pypi/lightgbm-tools)
+
 This Python package implements tools for [LightGBM](https://lightgbm.readthedocs.io/).
 In the current version lightgbm-tools focuses on binary classification metrics.
 
