@@ -87,7 +87,7 @@ lightgbm-tools can be installed with pip:
 pip install lightgbm-tools
 ```
 
-To run unit tests locally, ensure that you have installed all relevant requirements.
+To do development and run unit tests locally, ensure that you have installed all relevant requirements.
 You will probably want to install it in "editable mode" if you are developing locally.
 
 ```bash
