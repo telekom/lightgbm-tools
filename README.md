@@ -95,6 +95,7 @@ The followring predefined metric definitions (`LightGbmEvalFunction`) are availa
 Below is an example how to combine F1 and average precision:
 
 ```python
+import lightgbm
 from lightgbm_tools.metrics import (
     binary_eval_callback_factory,
     lgbm_average_precision_score,
