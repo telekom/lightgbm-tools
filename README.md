@@ -34,7 +34,7 @@ The easiest way is to use the predefined callback functions. These are:
 - `lightgbm_tools.metrics.lgbm_recall_score_callback`
 - `lightgbm_tools.metrics.lgbm_precision_score_callback`
 
-Here F1 is used as an example to show how this is done:
+Here F1 is used as an example to show how the predefined callback functions can be used:
 
 ```python
 import lightgbm
