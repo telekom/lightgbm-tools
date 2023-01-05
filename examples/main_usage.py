@@ -74,7 +74,7 @@ bst = lgbm.train(
     num_boost_round=6,
     verbose_eval=False,
     evals_result=evals_result,
-    feval=callback,  # here we pass the callback
+    feval=callback,  # here we pass the callback to LightGBM
 )
 
 pprint(evals_result)
