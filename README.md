@@ -28,54 +28,97 @@ team of [Deutsche Telekom AG](https://www.telekom.com/).
 
 ## Usage
 
-For a full example see here: <https://github.com/telekom/lightgbm-tools/blob/main/examples/main_usage.py>
+You can find a fully functional example here: <https://github.com/telekom/lightgbm-tools/blob/main/examples/main_usage.py>
 
-Create own custom eval (metric) function:
+The easiest way is to use the predefined callback functions. These are:
+
+- `lightgbm_tools.metrics.lgbm_f1_score_callback`
+- `lightgbm_tools.metrics.lgbm_accuracy_score_callback`
+- `lightgbm_tools.metrics.lgbm_average_precision_score_callback`
+- `lightgbm_tools.metrics.lgbm_roc_auc_score_callback`
+- `lightgbm_tools.metrics.lgbm_recall_score_callback`
+- `lightgbm_tools.metrics.lgbm_precision_score_callback`
+
+Here F1 is used as an example to show how the predefined callback functions can be used:
 
 ```python
-from sklearn.metrics import balanced_accuracy_score
-from lightgbm_tools.metrics import LightGbmEvalFunction
+import lightgbm
+from lightgbm_tools.metrics import lgbm_f1_score_callback
 
-# create own custom eval (metric) function for balanced_accuracy_score
+bst = lightgbm.train(
+    params,
+    train_data,
+    valid_sets=val_data,
+    num_boost_round=6,
+    verbose_eval=False,
+    evals_result=evals_result,
+    feval=lgbm_f1_score_callback,  # here we pass the callback to LightGBM
+)
+```
+
+You can also reuse other implementations of metrics.
+Here is an example of how to do this using the `balanced_accuracy_score` from scikit-learn:
+
+```python
+import lightgbm
+from sklearn.metrics import balanced_accuracy_score
+from lightgbm_tools.metrics import LightGbmEvalFunction, binary_eval_callback_factory
+
+# define own custom eval (metric) function for balanced_accuracy_score
 lgbm_balanced_accuracy = LightGbmEvalFunction(
     name="balanced_accuracy",
     function=balanced_accuracy_score,
     is_higher_better=True,
     needs_binary_predictions=True,
 )
-```
-
-Create the callback function for LightGBM:
-
-```python
-from lightgbm_tools.metrics import (
-    binary_eval_callback_factory,
-    lgbm_accuracy_score,
-    lgbm_average_precision_score,
-    lgbm_f1_score,
-)
 
 # use the factory function to create the callback
-# add the predefined F1, accuracy and average precision metrics
-# and the own custom eval (metric) function for balanced_accuracy_score
-callback = binary_eval_callback_factory(
-    [lgbm_f1_score, lgbm_accuracy_score, lgbm_average_precision_score, lgbm_balanced_accuracy]
-)
-```
+lgbm_balanced_accuracy_callback = binary_eval_callback_factory([lgbm_balanced_accuracy])
 
-Use the callback:
-
-```python
-import lightgbm as lgbm
-
-bst = lgbm.train(
-    param,
+bst = lightgbm.train(
+    params,
     train_data,
     valid_sets=val_data,
     num_boost_round=6,
     verbose_eval=False,
     evals_result=evals_result,
-    feval=callback,  # here we pass the callback
+    feval=lgbm_balanced_accuracy_callback,  # here we pass the callback to LightGBM
+)
+```
+
+This tool can also be used to calculate multiple metrics at the same time.
+It can be done by passing several definitions of metrics (in a list) to the
+`binary_eval_callback_factory`.
+The followring predefined metric definitions (`LightGbmEvalFunction`) are available:
+
+- `lightgbm_tools.metrics.lgbm_f1_score`
+- `lightgbm_tools.metrics.lgbm_accuracy_score`
+- `lightgbm_tools.metrics.lgbm_average_precision_score`
+- `lightgbm_tools.metrics.lgbm_roc_auc_score`
+- `lightgbm_tools.metrics.lgbm_recall_score`
+- `lightgbm_tools.metrics.lgbm_precision_score`
+
+Below is an example how to combine F1 and average precision:
+
+```python
+import lightgbm
+from lightgbm_tools.metrics import (
+    binary_eval_callback_factory,
+    lgbm_average_precision_score,
+    lgbm_f1_score,
+)
+
+# use the factory function to create the callback
+callback = binary_eval_callback_factory([lgbm_average_precision_score, lgbm_f1_score])
+
+bst = lightgbm.train(
+    params,
+    train_data,
+    valid_sets=val_data,
+    num_boost_round=6,
+    verbose_eval=False,
+    evals_result=evals_result,
+    feval=callback,  # here we pass the callback to LightGBM
 )
 ```
 
@@ -88,7 +131,7 @@ pip install lightgbm-tools
 ```
 
 To do development and run unit tests locally, ensure that you have installed all relevant requirements.
-You will probably want to install it in "editable mode" if you are developing locally.
+You will probably want to install it in "editable mode" if you are developing locally:
 
 ```bash
 pip install -e .[all]

@@ -8,7 +8,7 @@
 from pprint import pprint
 from typing import Dict
 
-import lightgbm as lgbm
+import lightgbm
 from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import balanced_accuracy_score
 from sklearn.model_selection import train_test_split
@@ -41,7 +41,7 @@ print("y_train.shape:", y_train.shape)
 print("x_val.shape:", x_val.shape)
 print("y_val.shape:", y_val.shape)
 
-# create own custom eval (metric) function for balanced_accuracy_score
+# define own custom eval (metric) function for balanced_accuracy_score
 lgbm_balanced_accuracy = LightGbmEvalFunction(
     name="balanced_accuracy",
     function=balanced_accuracy_score,
@@ -61,20 +61,20 @@ callback = binary_eval_callback_factory(
 train_data = lgbm.Dataset(x_train, label=y_train)
 val_data = lgbm.Dataset(x_val, label=y_val)
 
-param = {
+params = {
     "objective": "binary",
 }
 
 evals_result: Dict = {}
 
-bst = lgbm.train(
-    param,
+bst = lightgbm.train(
+    params,
     train_data,
     valid_sets=val_data,
     num_boost_round=6,
     verbose_eval=False,
     evals_result=evals_result,
-    feval=callback,  # here we pass the callback
+    feval=callback,  # here we pass the callback to LightGBM
 )
 
 pprint(evals_result)
